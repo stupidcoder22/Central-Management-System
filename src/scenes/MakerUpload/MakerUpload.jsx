@@ -36,17 +36,6 @@ const MakerUpload = () => {
           top: "20px",
         }}
       >
-        <Typography
-          variant="h6"
-          sx={{
-            fontWeight: "bold",
-            marginBottom: "20px",
-            color: "#333",
-            textAlign: "left",
-          }}
-        >
-          Manage Users
-        </Typography>
         <List>
           {menuItems.map((item, index) => (
             <ListItem
@@ -85,8 +74,8 @@ const MakerUpload = () => {
           borderRadius: "8px",
           boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
           marginLeft: "20px",
-          overflowY: "auto", // Enables vertical scrolling for content area
-          maxHeight: "100vh", // Prevents content overflow beyond the viewport
+          overflowY: "auto",
+          maxHeight: "100vh",
         }}
       >
         <Box>

@@ -9,7 +9,6 @@ const UserandGroups = () => {
   const [selectedContent, setSelectedContent] = useState("User List");
 
   const menuItems = [
-    { text: "Create User", component: <CreateUser /> },
     { text: "User List", component: <UserTable /> },
     { text: "Group List", component: <LenovoTable /> },
     { text: "Group Hierarchy", component: <GroupHierarchyTable /> },
@@ -32,23 +31,12 @@ const UserandGroups = () => {
           backgroundColor: "#fff",
           borderRadius: "8px",
           boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-          height: "fit-content", // Sidebar height is based on its content
+          height: "fit-content",
           padding: "16px",
           position: "sticky",
-          top: "20px", // Ensures the sidebar stays in place on scroll
+          top: "20px",
         }}
       >
-        <Typography
-          variant="h6"
-          sx={{
-            fontWeight: "bold",
-            marginBottom: "20px",
-            color: "#333",
-            textAlign: "left",
-          }}
-        >
-          Manage Users
-        </Typography>
         <List>
           {menuItems.map((item, index) => (
             <ListItem
@@ -87,8 +75,8 @@ const UserandGroups = () => {
           borderRadius: "8px",
           boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
           marginLeft: "20px",
-          overflowY: "auto", // Enables vertical scrolling for content area
-          maxHeight: "100vh", // Prevents content overflow beyond the viewport
+          overflowY: "auto",
+          maxHeight: "100vh",
         }}
       >
         <Box>

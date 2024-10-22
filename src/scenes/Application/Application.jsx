@@ -34,17 +34,6 @@ const Application = () => {
           top: "20px", // Ensures the sidebar stays in place on scroll
         }}
       >
-        <Typography
-          variant="h6"
-          sx={{
-            fontWeight: "bold",
-            marginBottom: "20px",
-            color: "#333",
-            textAlign: "left",
-          }}
-        >
-          Manage Users
-        </Typography>
         <List>
           {menuItems.map((item, index) => (
             <ListItem

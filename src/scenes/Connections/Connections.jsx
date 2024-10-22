@@ -1,29 +1,21 @@
 import React, { useState } from "react";
 import { Box, List, ListItem, ListItemText, Typography } from "@mui/material";
-import UserSecurity from "./UserSecurity";
-import PropertiesData from "./PropertiesData";
-import MasterCategory from "./MasterCategory";
-import MasterTable from "../MasterTable";
+import ConnectionList from "./ConnectionList";
+import ConnectionMasterTable from "./ConnectionMasterTable";
 
-const GroupEdit = () => {
-  const [selectedContent, setSelectedContent] = useState("Properties");
+const Connections = () => {
+  const [selectedContent, setSelectedContent] = useState("Connection List");
 
   const menuItems = [
-    { text: "Properties", component: <PropertiesData /> },
-    { text: "Security", component: <UserSecurity /> },
-    {
-      text: "Master Category",
-      component: (
-        <MasterCategory onViewClick={() => setSelectedContent("MasterTable")} />
-      ),
-    },
+    { text: "Connection List", component: <ConnectionList /> },
+    { text: "Master Table", component: <ConnectionMasterTable /> },
   ];
 
   return (
     <Box
       sx={{
         display: "flex",
-        minHeight: "100vh", // Full viewport height
+        minHeight: "100vh",
         backgroundColor: "#f0f2f5",
         padding: "20px",
       }}
@@ -31,28 +23,17 @@ const GroupEdit = () => {
       {/* Sidebar */}
       <Box
         sx={{
-          width: 240, // Consistent width with UserandGroups
+          width: 240,
           borderRight: "2px solid #ddd",
           backgroundColor: "#fff",
           borderRadius: "8px",
           boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-          height: "fit-content", // Adjust based on content
+          height: "fit-content",
           padding: "16px",
           position: "sticky",
-          top: "20px", // Stays in view on scroll
+          top: "20px",
         }}
       >
-        <Typography
-          variant="h6"
-          sx={{
-            fontWeight: "bold",
-            marginBottom: "20px",
-            color: "#333",
-            textAlign: "left",
-          }}
-        >
-          Edit Group
-        </Typography>
         <List>
           {menuItems.map((item, index) => (
             <ListItem
@@ -82,7 +63,7 @@ const GroupEdit = () => {
         </List>
       </Box>
 
-      {/* Main Content */}
+      {/* Content Area */}
       <Box
         sx={{
           flexGrow: 1,
@@ -91,19 +72,17 @@ const GroupEdit = () => {
           borderRadius: "8px",
           boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
           marginLeft: "20px",
-          overflowY: "auto", // Enable scrolling for content
-          maxHeight: "100vh", // Prevents content overflow
+          overflowY: "auto",
+          maxHeight: "100vh",
         }}
       >
-        {selectedContent === "MasterTable" ? (
-          <MasterTable />
-        ) : (
-          menuItems.find((item) => item.text === selectedContent)
-            ?.component || <h1>Content not found</h1>
-        )}
+        <Box>
+          {menuItems.find((item) => item.text === selectedContent)
+            ?.component || <h1>Content not found</h1>}
+        </Box>
       </Box>
     </Box>
   );
 };
 
-export default GroupEdit;
+export default Connections;

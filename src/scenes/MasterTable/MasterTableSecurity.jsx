@@ -68,7 +68,7 @@ const rows = [
 
 const MasterTableSecurity = () => {
   return (
-    <Box>
+    <Box sx={{ padding: "20px" }}>
       <Box mb={2}>
         <Box
           sx={{

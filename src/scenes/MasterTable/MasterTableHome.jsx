@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, List, ListItem, ListItemText, Typography } from "@mui/material";
 import CreateMasterTable from "./CreateMasterTable";
 import MasterTableList from "./MasterTableList";
 import MasterTableSecurity from "./MasterTableSecurity";
+import { useLocation } from "react-router-dom";
+import ConnectionList from "../Connections/ConnectionList";
 
 const MasterTableHome = () => {
-  const [selectedContent, setSelectedContent] = useState("Create Master Table");
+  const pageValue = useLocation().state;
+
+  const page = pageValue ? pageValue : "Master Table List";
+  const [selectedContent, setSelectedContent] = useState(page);
 
   const menuItems = [
-    { text: "Create Master Table", component: <CreateMasterTable /> },
+    // { text: "Create Master Table", component: <CreateMasterTable /> },
     { text: "Master Table List", component: <MasterTableList /> },
-    { text: "Master Table Security", component: <MasterTableSecurity /> },
+    { text: "Connection", component: <ConnectionList /> },
+    { text: "Security", component: <MasterTableSecurity /> },
   ];
 
   return (
@@ -30,23 +36,12 @@ const MasterTableHome = () => {
           backgroundColor: "#fff",
           borderRadius: "8px",
           boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-          height: "fit-content", // Sidebar height is based on its content
+          height: "fit-content",
           padding: "16px",
           position: "sticky",
-          top: "20px", // Ensures the sidebar stays in place on scroll
+          top: "20px",
         }}
       >
-        <Typography
-          variant="h6"
-          sx={{
-            fontWeight: "bold",
-            marginBottom: "20px",
-            color: "#333",
-            textAlign: "left",
-          }}
-        >
-          Manage Users
-        </Typography>
         <List>
           {menuItems.map((item, index) => (
             <ListItem
@@ -85,8 +80,8 @@ const MasterTableHome = () => {
           borderRadius: "8px",
           boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
           marginLeft: "20px",
-          overflowY: "auto", // Enables vertical scrolling for content area
-          maxHeight: "100vh", // Prevents content overflow beyond the viewport
+          overflowY: "auto",
+          maxHeight: "100vh",
         }}
       >
         <Box>

@@ -42,15 +42,17 @@ const rows = [
   createUserData("Finance", "Edit", "Description for Finance"),
 ];
 
-const MasterCategory = ({ onViewClick }) => {
+const MasterCategory = ({ onViewClick, nameFlag }) => {
+  const flag = nameFlag ? true : false;
+
   return (
-    <>
+    <Box>
       <Typography
         sx={{
           fontSize: "20px",
           textAlign: "center",
           fontWeight: 700,
-          marginBlock: "20px",
+          marginBlock: !flag ? "20px" : "0px",
         }}
       >
         John Doe
@@ -58,8 +60,10 @@ const MasterCategory = ({ onViewClick }) => {
       <Box
         sx={{
           display: "flex",
-          gap: "16px", // Increased spacing between buttons
+          gap: "16px",
           mb: 2,
+          justifyContent: "start",
+          width: "100%",
         }}
       >
         <Button
@@ -149,7 +153,7 @@ const MasterCategory = ({ onViewClick }) => {
           </TableBody>
         </Table>
       </TableContainer>
-    </>
+    </Box>
   );
 };
 

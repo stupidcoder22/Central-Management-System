@@ -10,6 +10,7 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import ApprovalIcon from "@mui/icons-material/Approval";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import TableChartIcon from "@mui/icons-material/TableChart";
+import AccountTreeIcon from "@mui/icons-material/AccountTree";
 
 const HomePage = () => {
   return (
@@ -204,6 +205,40 @@ const HomePage = () => {
                 }}
               >
                 Checker Verification
+              </Link>
+            </Typography>
+          </Box>
+
+          <Box
+            mt={3}
+            display="flex"
+            alignItems="center"
+            justifyContent="left"
+            sx={{
+              padding: "10px 15px",
+              backgroundColor: "#FFFFFF",
+              borderRadius: "8px",
+              boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
+              transition: "transform 0.2s ease-in-out",
+              "&:hover": {
+                transform: "translateY(-5px)",
+              },
+              cursor: "pointer",
+            }}
+          >
+            <AccountTreeIcon
+              sx={{ fontSize: "28px", color: "#3f51b5", marginRight: "15px" }}
+            />
+            <Typography>
+              <Link
+                to="/connections"
+                style={{
+                  color: "#333",
+                  fontSize: "16px",
+                  textDecoration: "none",
+                }}
+              >
+                Connection
               </Link>
             </Typography>
           </Box>

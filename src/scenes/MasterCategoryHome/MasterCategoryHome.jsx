@@ -1,33 +1,39 @@
 import React, { useState } from "react";
 import { Box, List, ListItem, ListItemText, Divider } from "@mui/material";
-import CreateMasterCategory from "./CreateMasterCategory";
 import MasterCategoryList from "./MasterCategoryList";
 import MasterCategorySecurity from "./MasterCategorySecurity";
 
 const MasterCategoryHome = () => {
   const [selectedContent, setSelectedContent] = useState(
-    "Create Master Category"
+    "Master Category List"
   );
 
   const menuItems = [
-    { text: "Create Master Category", component: <CreateMasterCategory /> },
     { text: "Master Category List", component: <MasterCategoryList /> },
-    { text: "Master Category Security", component: <MasterCategorySecurity /> },
+    { text: "Security", component: <MasterCategorySecurity /> },
   ];
 
   return (
-    <Box sx={{ display: "flex", height: "100vh" }}>
+    <Box
+      sx={{
+        display: "flex",
+        minHeight: "100vh",
+        backgroundColor: "#f0f2f5",
+        padding: "20px",
+      }}
+    >
       {/* Sidebar */}
       <Box
         sx={{
-          width: 230,
-          borderRight: "1px solid #ddd",
-          padding: "16px",
-          height: "100vh",
-          position: "sticky",
-          top: 0, // Sticks to the top when scrolling
+          width: 240,
+          borderRight: "2px solid #ddd",
           backgroundColor: "#fff",
-          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)", // Added shadow for modern look
+          borderRadius: "8px",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+          height: "fit-content",
+          padding: "16px",
+          position: "sticky",
+          top: "20px",
         }}
       >
         <List>
@@ -37,21 +43,23 @@ const MasterCategoryHome = () => {
               key={index}
               onClick={() => setSelectedContent(item.text)}
               sx={{
-                backgroundColor:
-                  selectedContent === item.text ? "#3f51b5" : "transparent",
-                "&:hover": {
-                  backgroundColor: "#d3d3d3",
-                },
-                borderRadius: "5px",
+                borderRadius: "6px",
                 marginBottom: "10px",
+                padding: "10px 15px",
+                backgroundColor:
+                  selectedContent === item.text ? "#e3f2fd" : "#fff", // Background color when selected
+                color: selectedContent === item.text ? "#3f51b5" : "#333", // Text color when selected
+                transition: "background-color 0.3s ease",
+                boxShadow:
+                  selectedContent === item.text
+                    ? "0 2px 10px rgba(0, 0, 0, 0.1)"
+                    : "none", // Box shadow when selected
+                "&:hover": {
+                  backgroundColor: "#e3f2fd", // Background color on hover
+                },
               }}
             >
-              <ListItemText
-                primary={item.text}
-                sx={{
-                  color: selectedContent === item.text ? "white" : "black",
-                }}
-              />
+              <ListItemText primary={item.text} />
             </ListItem>
           ))}
         </List>
@@ -62,10 +70,13 @@ const MasterCategoryHome = () => {
       <Box
         sx={{
           flexGrow: 1,
-          padding: "16px",
-          height: "100vh",
-          overflowY: "auto", // Allows scrolling for the main content
-          backgroundColor: "#f9f9f9", // Background color for main content
+          padding: "20px",
+          backgroundColor: "#fff",
+          borderRadius: "8px",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+          marginLeft: "20px",
+          overflowY: "auto",
+          maxHeight: "100vh",
         }}
       >
         {menuItems.find((item) => item.text === selectedContent)?.component || (

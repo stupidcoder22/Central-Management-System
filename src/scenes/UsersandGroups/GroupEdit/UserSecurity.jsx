@@ -54,15 +54,16 @@ const rows = [
   ),
 ];
 
-const UserSecurity = () => {
+const UserSecurity = ({ userflag }) => {
+  const flag = userflag ? true : false;
   return (
     <Box
       sx={{
-        padding: "40px",
+        padding: !flag ? "40px" : "0px",
         backgroundColor: "#fff",
         borderRadius: "8px",
         boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-        marginTop: "20px",
+        marginBlock: !flag ? "20px" : "0px",
       }}
     >
       <Box mb={2}>
@@ -102,35 +103,37 @@ const UserSecurity = () => {
               Remove
             </Button>
           </Box>
-          <Box>
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: "#3f51b5",
-                textTransform: "none",
-                fontWeight: "bold",
-                padding: "10px 20px",
-                borderRadius: "8px",
-                marginRight: "10px", // Space between buttons
-                "&:hover": { backgroundColor: "#303f9f" },
-              }}
-            >
-              View Security
-            </Button>
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: "#3f51b5",
-                textTransform: "none",
-                fontWeight: "bold",
-                padding: "10px 20px",
-                borderRadius: "8px",
-                "&:hover": { backgroundColor: "#303f9f" },
-              }}
-            >
-              Assign Security
-            </Button>
-          </Box>
+          {!flag && (
+            <Box>
+              <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: "#3f51b5",
+                  textTransform: "none",
+                  fontWeight: "bold",
+                  padding: "10px 20px",
+                  borderRadius: "8px",
+                  marginRight: "10px", // Space between buttons
+                  "&:hover": { backgroundColor: "#303f9f" },
+                }}
+              >
+                View Security
+              </Button>
+              <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: "#3f51b5",
+                  textTransform: "none",
+                  fontWeight: "bold",
+                  padding: "10px 20px",
+                  borderRadius: "8px",
+                  "&:hover": { backgroundColor: "#303f9f" },
+                }}
+              >
+                Assign Security
+              </Button>
+            </Box>
+          )}
         </Box>
       </Box>
 

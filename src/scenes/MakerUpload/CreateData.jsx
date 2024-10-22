@@ -12,12 +12,15 @@ import {
 
 const categories = ["Finance", "Operation", "HR", "Sales", "Marketing"];
 const tables = ["Users", "Orders", "Products", "Transactions"];
+const connections = ["MYSQL", "MSSQL", "Oracle"]; // Connection list array
 
 const CreateData = () => {
   const [openCategoryModal, setOpenCategoryModal] = useState(false);
   const [openTableModal, setOpenTableModal] = useState(false);
+  const [openConnectionModal, setOpenConnectionModal] = useState(false); // Modal for connection list
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedTables, setSelectedTables] = useState([]);
+  const [selectedConnections, setSelectedConnections] = useState([]); // State for selected connections
 
   const handleCategoryChange = (category) => {
     setSelectedCategories((prev) =>
@@ -32,6 +35,14 @@ const CreateData = () => {
       prev.includes(table)
         ? prev.filter((item) => item !== table)
         : [...prev, table]
+    );
+  };
+
+  const handleConnectionChange = (connection) => {
+    setSelectedConnections((prev) =>
+      prev.includes(connection)
+        ? prev.filter((item) => item !== connection)
+        : [...prev, connection]
     );
   };
 
@@ -51,10 +62,18 @@ const CreateData = () => {
     setSelectedTables([]);
   };
 
+  const selectAllConnections = () => {
+    setSelectedConnections(connections);
+  };
+
+  const selectNoneConnections = () => {
+    setSelectedConnections([]);
+  };
+
   return (
     <Box
       sx={{
-        backgroundColor: "#f4f6f8",
+        // backgroundColor: "#f4f6f8",
         height: "100vh",
         padding: "30px",
       }}
@@ -73,11 +92,11 @@ const CreateData = () => {
         </Typography>
       </Box>
 
-      <Paper
+      <Box
         sx={{
-          padding: "20px",
+          // padding: "20px",
           borderRadius: "8px",
-          boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+          // boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
         }}
       >
         <Typography variant="h6" sx={{ marginBottom: "20px" }}>
@@ -97,19 +116,30 @@ const CreateData = () => {
         </Button>
         <Button
           variant="outlined"
-          sx={{ borderColor: "#3f51b5", color: "#3f51b5" }}
+          sx={{ borderColor: "#3f51b5", color: "#3f51b5", marginRight: "10px" }}
           onClick={() => setOpenTableModal(true)}
         >
           Select Master Table
         </Button>
 
-        {/* Selected Categories and Tables */}
+        <Button
+          variant="outlined"
+          sx={{ borderColor: "#3f51b5", color: "#3f51b5" }}
+          onClick={() => setOpenConnectionModal(true)} // Open connection modal
+        >
+          Select Connection List
+        </Button>
+
+        {/* Selected Categories, Tables, and Connections */}
         <Box sx={{ marginTop: "20px" }}>
           <Typography variant="subtitle1">
             Selected Categories: {selectedCategories.join(", ") || "None"}
           </Typography>
           <Typography variant="subtitle1">
             Selected Tables: {selectedTables.join(", ") || "None"}
+          </Typography>
+          <Typography variant="subtitle1">
+            Selected Connections: {selectedConnections.join(", ") || "None"}
           </Typography>
         </Box>
 
@@ -189,7 +219,7 @@ const CreateData = () => {
         >
           Submit
         </Button>
-      </Paper>
+      </Box>
 
       {/* Category Modal */}
       <Modal
@@ -319,7 +349,7 @@ const CreateData = () => {
             <Button
               variant="contained"
               sx={{
-                backgroundColor: "#f44336", // Red color for "Select None"
+                backgroundColor: "#f44336",
                 color: "white",
                 textTransform: "none",
                 padding: "5px 10px",
@@ -342,13 +372,99 @@ const CreateData = () => {
                   />
                 }
                 label={table}
-                sx={{ marginRight: "10px" }} // Margin to space out the items
+                sx={{ marginRight: "10px" }}
               />
             ))}
           </Box>
           <Button
             variant="contained"
             onClick={() => setOpenTableModal(false)}
+            sx={{
+              marginTop: "20px",
+              backgroundColor: "#3f51b5",
+              color: "white",
+            }}
+          >
+            Close
+          </Button>
+        </Box>
+      </Modal>
+
+      {/* Connection Modal */}
+      <Modal
+        open={openConnectionModal}
+        onClose={() => setOpenConnectionModal(false)}
+      >
+        <Box
+          sx={{
+            width: 400,
+            bgcolor: "background.paper",
+            padding: 4,
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            boxShadow: 24,
+          }}
+        >
+          <Typography variant="h6" sx={{ marginBottom: "20px" }}>
+            Select Connection List
+          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginBottom: "10px",
+            }}
+          >
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "#3f51b5",
+                color: "white",
+                textTransform: "none",
+                padding: "5px 10px",
+                borderRadius: "4px",
+                "&:hover": { backgroundColor: "#303f9f" },
+              }}
+              onClick={selectAllConnections}
+            >
+              Select All
+            </Button>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "#f44336",
+                color: "white",
+                textTransform: "none",
+                padding: "5px 10px",
+                borderRadius: "4px",
+                "&:hover": { backgroundColor: "#d32f2f" },
+              }}
+              onClick={selectNoneConnections}
+            >
+              Select None
+            </Button>
+          </Box>
+          <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+            {connections.map((connection) => (
+              <FormControlLabel
+                key={connection}
+                control={
+                  <Checkbox
+                    checked={selectedConnections.includes(connection)}
+                    onChange={() => handleConnectionChange(connection)}
+                  />
+                }
+                label={connection}
+                sx={{ marginRight: "10px" }}
+              />
+            ))}
+          </Box>
+          <Button
+            variant="contained"
+            onClick={() => setOpenConnectionModal(false)}
             sx={{
               marginTop: "20px",
               backgroundColor: "#3f51b5",

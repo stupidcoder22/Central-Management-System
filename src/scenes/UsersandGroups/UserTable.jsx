@@ -11,6 +11,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
+import CreateUser from "./CreateUser";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -66,6 +67,7 @@ const rows = [
 export default function UserTable() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [menuPosition, setMenuPosition] = useState(null);
+  const [toggle, settoggle] = useState(true);
 
   const handleRightClick = (event, user) => {
     event.preventDefault();
@@ -80,68 +82,87 @@ export default function UserTable() {
 
   return (
     <>
-      <TableContainer
-        component={Paper}
-        sx={{
-          borderRadius: "12px",
-          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-          mt: 3,
-        }}
-      >
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>User Name</StyledTableCell>
-              <StyledTableCell align="right">Email</StyledTableCell>
-              <StyledTableCell align="right">Role</StyledTableCell>
-              <StyledTableCell align="right">Status</StyledTableCell>
-              <StyledTableCell align="right">Actions</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row.email}>
-                <StyledTableCell
-                  component="th"
-                  scope="row"
-                  onContextMenu={(event) => handleRightClick(event, row)}
-                  style={{ cursor: "context-menu" }}
-                >
-                  {row.name}
-                </StyledTableCell>
-                <StyledTableCell align="right">{row.email}</StyledTableCell>
-                <StyledTableCell align="right">{row.role}</StyledTableCell>
-                <StyledTableCell align="right">{row.status}</StyledTableCell>
-                <StyledTableCell align="right">
-                  <Button
-                    variant="contained"
-                    sx={{
-                      backgroundColor: "#3f51b5",
-                      textTransform: "none",
-                      fontWeight: "bold",
-                      borderRadius: "6px",
-                      padding: "6px 12px",
-                      "&:hover": {
-                        backgroundColor: "#303f9f",
-                      },
-                    }}
+      {toggle ? (
+        <TableContainer
+          component={Paper}
+          sx={{
+            borderRadius: "12px",
+            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+            mt: 3,
+          }}
+        >
+          <Button
+            onClick={() => settoggle(!true)}
+            variant="contained"
+            sx={{
+              backgroundColor: "#3f51b5",
+              textTransform: "none",
+              fontWeight: "bold",
+              padding: "10px 20px",
+              borderRadius: "8px",
+              "&:hover": { backgroundColor: "#303f9f" },
+              mb: 3,
+            }}
+          >
+            Create User
+          </Button>
+          <Table sx={{ minWidth: 700 }} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>User Name</StyledTableCell>
+                <StyledTableCell align="right">Email</StyledTableCell>
+                <StyledTableCell align="right">Role</StyledTableCell>
+                <StyledTableCell align="right">Status</StyledTableCell>
+                <StyledTableCell align="right">Actions</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row) => (
+                <StyledTableRow key={row.email}>
+                  <StyledTableCell
+                    component="th"
+                    scope="row"
+                    onContextMenu={(event) => handleRightClick(event, row)}
+                    style={{ cursor: "context-menu" }}
                   >
-                    <Link
-                      style={{
-                        color: "white",
-                        textDecoration: "none",
+                    {row.name}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">{row.email}</StyledTableCell>
+                  <StyledTableCell align="right">{row.role}</StyledTableCell>
+                  <StyledTableCell align="right">{row.status}</StyledTableCell>
+                  <StyledTableCell align="right">
+                    <Button
+                      variant="contained"
+                      sx={{
+                        backgroundColor: "#3f51b5",
+                        textTransform: "none",
+                        fontWeight: "bold",
+                        borderRadius: "6px",
+                        padding: "6px 12px",
+                        "&:hover": {
+                          backgroundColor: "#303f9f",
+                        },
                       }}
-                      to={"/usergroupedit"}
                     >
-                      {row.action}
-                    </Link>
-                  </Button>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                      <Link
+                        style={{
+                          color: "white",
+                          textDecoration: "none",
+                        }}
+                        to={"/usergroupedit"}
+                      >
+                        {row.action}
+                      </Link>
+                    </Button>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      ) : (
+        <CreateUser />
+      )}
 
       {/* Context Menu for Right Click */}
       <Menu

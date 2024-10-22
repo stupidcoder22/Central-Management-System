@@ -44,9 +44,9 @@ const CreateMasterTable = () => {
   return (
     <Grid
       container
-      spacing={3}
+      // spacing={3}
       justifyContent="left"
-      style={{ padding: "20px" }}
+      // style={{ padding: "20px" }}
     >
       <Grid item xs={12}>
         <h2>Create Master Table</h2>

@@ -16,6 +16,7 @@ import MasterTableHome from "./scenes/MasterTable/MasterTableHome.jsx";
 import MakerUpload from "./scenes/MakerUpload/MakerUpload.jsx";
 import CheckerVerification from "./scenes/CheckerVerification/CheckerVerification.jsx";
 import Application from "./scenes/Application/Application.jsx";
+import Connections from "./scenes/Connections/Connections.jsx";
 
 const AppRouter = () => {
   return (
@@ -41,6 +42,7 @@ const AppRouter = () => {
               element={<MasterCategoryHome />}
             />
             <Route path="/application" element={<Application />} />
+            <Route path="/connections" element={<Connections />} />
           </Route>
         </Routes>
       </Router>

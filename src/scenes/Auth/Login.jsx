@@ -99,7 +99,7 @@ const Login = () => {
             color="primary"
             sx={{ fontWeight: "bold" }}
           >
-            Central Management System
+            Master Data Management
           </Typography>
           <Typography variant="body2" align="center" color="textSecondary">
             Please login to your account
