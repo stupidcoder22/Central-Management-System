@@ -85,97 +85,99 @@ function App() {
               >
                 {!hideNavbar && <Navbar />}
                 <Box sx={{ overflowY: "auto", flex: 1, maxWidth: "100%" }}>
-                  <FormControl sx={{ ml: 5, minWidth: 120 }}>
-                    <Select
-                      value={age}
-                      onChange={handleChange}
-                      displayEmpty
-                      inputProps={{ "aria-label": "Without label" }}
-                    >
-                      <MenuItem value="Home">
-                        <Link
-                          to={"/home"}
-                          style={{
-                            color: "black",
-                            textDecoration: "none",
-                          }}
-                        >
-                          <em>Home</em>
-                        </Link>
-                      </MenuItem>
-                      <MenuItem value={"User And Group"}>
-                        <Link
-                          to={"/userandgroups"}
-                          style={{
-                            color: "black",
-                            textDecoration: "none",
-                          }}
-                        >
-                          User and Group
-                        </Link>
-                      </MenuItem>
+                  {!hideNavbar && (
+                    <FormControl sx={{ ml: 5, minWidth: 120 }}>
+                      <Select
+                        value={age}
+                        onChange={handleChange}
+                        displayEmpty
+                        inputProps={{ "aria-label": "Without label" }}
+                      >
+                        <MenuItem value="Home">
+                          <Link
+                            to={"/home"}
+                            style={{
+                              color: "black",
+                              textDecoration: "none",
+                            }}
+                          >
+                            <em>Home</em>
+                          </Link>
+                        </MenuItem>
+                        <MenuItem value={"User And Group"}>
+                          <Link
+                            to={"/userandgroups"}
+                            style={{
+                              color: "black",
+                              textDecoration: "none",
+                            }}
+                          >
+                            User and Group
+                          </Link>
+                        </MenuItem>
 
-                      <MenuItem value={"Master Category"}>
-                        <Link
-                          to={"/mastercategoryhome"}
-                          style={{
-                            color: "black",
-                            textDecoration: "none",
-                          }}
-                        >
-                          Master Category
-                        </Link>
-                      </MenuItem>
+                        <MenuItem value={"Master Category"}>
+                          <Link
+                            to={"/mastercategoryhome"}
+                            style={{
+                              color: "black",
+                              textDecoration: "none",
+                            }}
+                          >
+                            Master Category
+                          </Link>
+                        </MenuItem>
 
-                      <MenuItem value={"Master Table"}>
-                        <Link
-                          to={"/mastertablehome"}
-                          style={{
-                            color: "black",
-                            textDecoration: "none",
-                          }}
-                        >
-                          Master Table
-                        </Link>
-                      </MenuItem>
+                        <MenuItem value={"Master Table"}>
+                          <Link
+                            to={"/mastertablehome"}
+                            style={{
+                              color: "black",
+                              textDecoration: "none",
+                            }}
+                          >
+                            Master Table
+                          </Link>
+                        </MenuItem>
 
-                      <MenuItem value={"Maker Upload"}>
-                        <Link
-                          to={"/makerupload"}
-                          style={{
-                            color: "black",
-                            textDecoration: "none",
-                          }}
-                        >
-                          Maker Upload
-                        </Link>
-                      </MenuItem>
+                        <MenuItem value={"Maker Upload"}>
+                          <Link
+                            to={"/makerupload"}
+                            style={{
+                              color: "black",
+                              textDecoration: "none",
+                            }}
+                          >
+                            Maker Upload
+                          </Link>
+                        </MenuItem>
 
-                      <MenuItem value={"Checker Verification"}>
-                        <Link
-                          to={"/checkerverification"}
-                          style={{
-                            color: "black",
-                            textDecoration: "none",
-                          }}
-                        >
-                          Checker Verification
-                        </Link>
-                      </MenuItem>
+                        <MenuItem value={"Checker Verification"}>
+                          <Link
+                            to={"/checkerverification"}
+                            style={{
+                              color: "black",
+                              textDecoration: "none",
+                            }}
+                          >
+                            Checker Verification
+                          </Link>
+                        </MenuItem>
 
-                      <MenuItem value={"Connections"}>
-                        <Link
-                          to={"/connections"}
-                          style={{
-                            color: "black",
-                            textDecoration: "none",
-                          }}
-                        >
-                          Connections
-                        </Link>
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
+                        <MenuItem value={"Connections"}>
+                          <Link
+                            to={"/connections"}
+                            style={{
+                              color: "black",
+                              textDecoration: "none",
+                            }}
+                          >
+                            Connections
+                          </Link>
+                        </MenuItem>
+                      </Select>
+                    </FormControl>
+                  )}
                   <Outlet />
                 </Box>
               </Box>
