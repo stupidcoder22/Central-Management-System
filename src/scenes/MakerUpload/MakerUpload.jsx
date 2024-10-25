@@ -5,10 +5,10 @@ import UploadDataList from "./UploadDataList";
 import MakerNotification from "./MakerNotification";
 
 const MakerUpload = () => {
-  const [selectedContent, setSelectedContent] = useState("Create Data");
+  const [selectedContent, setSelectedContent] = useState("Upload Data List");
 
   const menuItems = [
-    { text: "Create Data", component: <CreateData /> },
+    // { text: "Create Data", component: <CreateData /> },
     { text: "Upload Data List", component: <UploadDataList /> },
     { text: "Notification", component: <MakerNotification /> },
   ];

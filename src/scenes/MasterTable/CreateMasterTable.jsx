@@ -67,7 +67,6 @@ const CreateMasterTable = () => {
           display: "flex",
           justifyContent: "left",
           mt: "30px",
-          ml: "26px",
         }}
       >
         <Button
@@ -81,6 +80,7 @@ const CreateMasterTable = () => {
             borderRadius: "8px",
             color: "white",
             "&:hover": { backgroundColor: "#303f9f" },
+            mb: 2,
           }}
         >
           Select Master Category
@@ -126,6 +126,7 @@ const CreateMasterTable = () => {
         fullWidth
       >
         <DialogTitle>Select Master Category</DialogTitle>
+
         <DialogContent>
           <Box>
             <Typography variant="subtitle1" gutterBottom>
