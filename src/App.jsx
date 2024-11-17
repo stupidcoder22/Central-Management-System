@@ -41,6 +41,9 @@ function App() {
       case "/connections":
         setAge("Connections");
         break;
+      case "/application":
+        setAge("Application");
+        break;
       default:
         setAge("");
         break;
@@ -173,6 +176,18 @@ function App() {
                             }}
                           >
                             Connections
+                          </Link>
+                        </MenuItem>
+
+                        <MenuItem value={"Application"}>
+                          <Link
+                            to={"/application"}
+                            style={{
+                              color: "black",
+                              textDecoration: "none",
+                            }}
+                          >
+                            Application
                           </Link>
                         </MenuItem>
                       </Select>
