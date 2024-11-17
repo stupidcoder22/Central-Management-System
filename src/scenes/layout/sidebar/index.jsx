@@ -15,6 +15,7 @@ import StorageIcon from "@mui/icons-material/Storage";
 import ApprovalIcon from "@mui/icons-material/Approval";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import TableChartIcon from "@mui/icons-material/TableChart";
+import PolylineIcon from "@mui/icons-material/Polyline";
 
 const SideBar = () => {
   const [collapsed, setCollapsed] = useState(true);
@@ -22,6 +23,7 @@ const SideBar = () => {
   const navigation = useNavigate();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
   return (
     <Sidebar
       backgroundColor={colors.primary[400]}
@@ -133,6 +135,12 @@ const SideBar = () => {
             path="/checkerverification"
             colors={colors}
             icon={<ApprovalIcon />}
+          />
+          <Item
+            title="Connections"
+            path="/connections"
+            colors={colors}
+            icon={<PolylineIcon />}
           />
         </Menu>
         <Typography

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Card,
   CardContent,
   Table,
   TableBody,
@@ -8,9 +7,8 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
   TextField,
-  Typography,
+  Button,
   Box,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
@@ -22,133 +20,60 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   fontWeight: "bold",
 }));
 
-const ViewTables = () => {
+const ViewTables = ({ toggleSidebar }) => {
   const [searchTerm, setSearchTerm] = useState("");
-
+  const [selectedColumnIndex, setSelectedColumnIndex] = useState(null);
+  // "Product Id",
+  //                   "Product Name",
+  //                   "Product Category",
+  //                   "Price",
   const tableData = [
     {
+      headername: "Product Id",
       id: "0010H00002QT5z7QAF",
-      name: "Macys",
-      type: "Customer - Direct",
-      billingStreet: "800 EAST CARPENTER",
+      name: "Product A",
+      type: "1020",
+      billingStreet: "Category A",
       billingCity: "SPRINGFIELD",
       billingState: "IL",
       billingPostalCode: "627690001",
       billingCountry: "US",
     },
     {
+      headername: "Product Name",
       id: "0010H00002QT5z8QAF",
-      name: "Happy Hippo INC",
-      type: "Customer - Direct",
-      billingStreet: "13128 N 94TH DR",
+      name: "Product B",
+      type: "1000",
+      billingStreet: "Category B",
       billingCity: "PEORIA",
       billingState: "AZ",
       billingPostalCode: "853814252",
       billingCountry: "US",
     },
     {
+      headername: "Product Category",
       id: "0010H00002QT5z9QAF",
-      name: "ABCO Foods",
-      type: "Customer - Direct",
-      billingStreet: "201 CEDAR ST SE",
+      name: "Product C",
+      type: "1876",
+      billingStreet: "Category  C",
       billingCity: "ALBUQUERQUE",
       billingState: "NM",
       billingPostalCode: "871064971",
       billingCountry: "US",
     },
     {
+      headername: "Product Price",
       id: "0010H00002QT6z0QAF",
-      name: "Bonanza Beauty",
-      type: "Customer - Direct",
-      billingStreet: "1600 WEEDT WAY",
+      name: "Product D",
+      type: "1243",
+      billingStreet: "Category D",
       billingCity: "ARCATA",
       billingState: "CA",
       billingPostalCode: "955214734",
       billingCountry: "US",
     },
-    {
-      id: "0010H00002QT6z1QAF",
-      name: "Country Club Markets",
-      type: "Customer - Direct",
-      billingStreet: "741 PRESIDENT PL",
-      billingCity: "SMYRNA",
-      billingState: "TN",
-      billingPostalCode: "371674971",
-      billingCountry: "US",
-    },
-    {
-      id: "0010H00002QT6z2QAF",
-      name: "Foxmoor",
-      type: "Customer - Direct",
-      billingStreet: "7434 S STATE ST",
-      billingCity: "MIDVALE",
-      billingState: "UT",
-      billingPostalCode: "840472014",
-      billingCountry: "US",
-    },
-    {
-      id: "0010H00002QT6z3QAF",
-      name: "On Cue",
-      type: "Customer - Direct",
-      billingStreet: "135 W RAVINE RD",
-      billingCity: "KINGSPORT",
-      billingState: "TN",
-      billingPostalCode: "376630347",
-      billingCountry: "US",
-    },
-    {
-      id: "0010H00002QT6z4QAF",
-      name: "Pointers",
-      type: "Customer - Direct",
-      billingStreet: "29645 W 14 MILE RD",
-      billingCity: "FARMINGTON HILLS",
-      billingState: "MI",
-      billingPostalCode: "483341666",
-      billingCountry: "US",
-    },
-    {
-      id: "0010H00002QT6z5QAF",
-      name: "Standard Brands F",
-      type: "Customer - Direct",
-      billingStreet: "U.S. NAVAL HOSPITAL",
-      billingCity: "FPO",
-      billingState: "AP",
-      billingPostalCode: "96350",
-      billingCountry: "US",
-    },
-    {
-      id: "0010H00002QT6z6QAF",
-      name: "Luria's CO",
-      type: "Customer - Direct",
-      billingStreet: "2931 N TENAYA WAY",
-      billingCity: "LAS VEGAS",
-      billingState: "NV",
-      billingPostalCode: "891284056",
-      billingCountry: "US",
-    },
-    {
-      id: "0010H00002QT6z7QAF",
-      name: "Schweggmann's INC",
-      type: "Customer - Direct",
-      billingStreet: "PO BOX 5038",
-      billingCity: "SIOUX FALLS",
-      billingState: "SD",
-      billingPostalCode: "571175038",
-      billingCountry: "US",
-    },
-    {
-      id: "0010H00002QT6z8QAF",
-      name: "JON F. Lawhon",
-      type: "Customer - Direct",
-      billingStreet: "8880 BRADBURY CT",
-      billingCity: "ELKO",
-      billingState: "NV",
-      billingPostalCode: "898015808",
-      billingCountry: "US",
-    },
   ];
 
-  // Filtered data based on search term
   const filteredData = tableData.filter(
     (row) =>
       row.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -156,10 +81,23 @@ const ViewTables = () => {
       row.billingState.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Handle column header click
+  const handleColumnClick = (index) => {
+    setSelectedColumnIndex(index);
+    toggleSidebar({ flag: true, text: tableData[index].headername });
+  };
+
   return (
     <Box>
       <CardContent>
-        <Box sx={{ width: "100%", display: "flex", justifyContent: "left" }}>
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <TextField
             label="Search by Name, City or State"
             variant="outlined"
@@ -167,39 +105,67 @@ const ViewTables = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             sx={{ marginBottom: 2, width: "30%" }}
           />
+
+          <Button
+            variant="contained"
+            sx={{ backgroundColor: "#3f51b5", color: "white" }}
+            onClick={() => {
+              toggleSidebar({ flag: true });
+              setSelectedColumnIndex();
+            }}
+          >
+            Right Sidebar
+          </Button>
         </Box>
 
         <TableContainer sx={{ maxHeight: 440, overflowX: "auto" }}>
           <Table stickyHeader aria-label="simple table">
             <TableHead>
               <TableRow>
-                <StyledTableCell>Id</StyledTableCell>
-                <StyledTableCell>Name</StyledTableCell>
-                <StyledTableCell>Type</StyledTableCell>
-                <StyledTableCell>Billing Street</StyledTableCell>
-                <StyledTableCell>Billing City</StyledTableCell>
-                <StyledTableCell>Billing State</StyledTableCell>
-                <StyledTableCell>Billing Postal</StyledTableCell>
-                <StyledTableCell>Billing Country</StyledTableCell>
+                {[
+                  "Product Id",
+                  "Product Name",
+                  "Product Category",
+                  "Price",
+                ].map((header, index) => (
+                  <StyledTableCell
+                    key={index}
+                    onClick={() => handleColumnClick(index)}
+                    sx={{
+                      cursor: "pointer",
+                      backgroundColor:
+                        selectedColumnIndex === index ? "#2c387e" : "#3f51b5",
+                    }}
+                  >
+                    {header}
+                  </StyledTableCell>
+                ))}
               </TableRow>
             </TableHead>
             <TableBody>
               {filteredData.length > 0 ? (
                 filteredData.map((row) => (
                   <TableRow key={row.id}>
-                    <TableCell>{row.id}</TableCell>
-                    <TableCell>{row.name}</TableCell>
-                    <TableCell>{row.type}</TableCell>
-                    <TableCell>{row.billingStreet}</TableCell>
-                    <TableCell>{row.billingCity}</TableCell>
-                    <TableCell>{row.billingState}</TableCell>
-                    <TableCell>{row.billingPostalCode}</TableCell>
-                    <TableCell>{row.billingCountry}</TableCell>
+                    {[row.id, row.name, row.billingStreet, row.type].map(
+                      (cell, index) => (
+                        <TableCell
+                          key={index}
+                          sx={{
+                            backgroundColor:
+                              selectedColumnIndex === index
+                                ? "#d1e3f9"
+                                : "inherit",
+                          }}
+                        >
+                          {cell}
+                        </TableCell>
+                      )
+                    )}
                   </TableRow>
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={8} align="center">
+                  <TableCell colSpan={4} align="center">
                     No results found.
                   </TableCell>
                 </TableRow>

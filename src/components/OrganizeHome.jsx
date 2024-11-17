@@ -223,7 +223,6 @@ const HomePage = () => {
               "&:hover": {
                 transform: "translateY(-5px)",
               },
-              cursor: "pointer",
             }}
           >
             <AccountTreeIcon
@@ -236,7 +235,11 @@ const HomePage = () => {
                   color: "#333",
                   fontSize: "16px",
                   textDecoration: "none",
+                  display: "inline-block",
+                  width: "100%",
+                  cursor: "pointer",
                 }}
+                className="afull"
               >
                 Connection
               </Link>

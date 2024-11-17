@@ -85,7 +85,7 @@ export default function ConnectionList() {
             display="flex"
             justifyContent="space-between"
             alignItems="center"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mb: 2 }}
           >
             <Button
               onClick={() => settoggle(!toggle)}

@@ -7,9 +7,31 @@ import MakerNotification from "./MakerNotification";
 const MakerUpload = () => {
   const [selectedContent, setSelectedContent] = useState("Upload Data List");
 
+  const [rightSidebar, setrightSidebar] = useState(false);
+
+  const [title, settitle] = useState("");
+
+  const toggleSidebar = ({ flag, text }) => {
+    console.log(text);
+    if (text) {
+      setrightSidebar(flag);
+      settitle(text);
+    } else {
+      doOpposite();
+    }
+  };
+
+  const doOpposite = () => {
+    console.log("aaya");
+    setrightSidebar(!rightSidebar);
+  };
+
   const menuItems = [
     // { text: "Create Data", component: <CreateData /> },
-    { text: "Upload Data List", component: <UploadDataList /> },
+    {
+      text: "Upload Data List",
+      component: <UploadDataList toggleSidebar={toggleSidebar} />,
+    },
     { text: "Notification", component: <MakerNotification /> },
   ];
 
@@ -83,6 +105,56 @@ const MakerUpload = () => {
             ?.component || <h1>Content not found</h1>}
         </Box>
       </Box>
+
+      {/* Right Sidebar */}
+
+      {rightSidebar && (
+        <Box
+          sx={{
+            width: 240,
+            borderRight: "2px solid #ddd",
+            backgroundColor: "#fff",
+            borderRadius: "8px",
+            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+            height: "fit-content",
+            padding: "16px",
+            position: "sticky",
+            top: "20px",
+            ml: 2,
+          }}
+        >
+          <Typography variant="h3" sx={{ marginBottom: 2 }}>
+            {title}
+          </Typography>
+          <Typography variant="body1" sx={{ marginBottom: 1 }}>
+            <strong>Row Count:</strong> 1,000
+          </Typography>
+          <Typography variant="body1" sx={{ marginBottom: 1 }}>
+            <strong>Unique Values:</strong>
+          </Typography>
+          <List>
+            <ListItem>
+              <ListItemText primary="Example Value 1" />
+            </ListItem>
+            <ListItem>
+              <ListItemText primary="Example Value 2" />
+            </ListItem>
+            <ListItem>
+              <ListItemText primary="Example Value 3" />
+            </ListItem>
+          </List>
+          <Typography variant="body1" sx={{ marginBottom: 1 }}>
+            <strong>Data Pattern:</strong> Email format (e.g., user@domain.com)
+          </Typography>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            sx={{ marginTop: 2 }}
+          >
+            Additional options for data analysis can be added here.
+          </Typography>
+        </Box>
+      )}
     </Box>
   );
 };

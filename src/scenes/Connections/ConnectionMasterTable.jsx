@@ -79,7 +79,7 @@ export default function ConnectionMasterTable() {
   );
 
   return (
-    <Box>
+    <Box sx={{ padding: "16px" }}>
       {toggle ? (
         <Box>
           <Box

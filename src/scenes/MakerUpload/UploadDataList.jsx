@@ -58,7 +58,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   fontWeight: "bold",
 }));
 
-const MasterTableWithSearch = () => {
+const MasterTableWithSearch = ({ toggleSidebar }) => {
   const [tableData, setTableData] = useState(initialTableData);
   const [searchTerm, setSearchTerm] = useState("");
   const [flag, setFlag] = useState({
@@ -238,7 +238,9 @@ const MasterTableWithSearch = () => {
       {flag.createdata && <CreateData onBack={handleBackToList} />}
 
       {/* Render ViewTables component when flag.viewtable is true */}
-      {flag.viewtable && <ViewTables onBack={handleBackToList} />}
+      {flag.viewtable && (
+        <ViewTables onBack={handleBackToList} toggleSidebar={toggleSidebar} />
+      )}
     </>
   );
 };
