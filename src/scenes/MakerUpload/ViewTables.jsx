@@ -114,7 +114,7 @@ const ViewTables = ({ toggleSidebar }) => {
               setSelectedColumnIndex();
             }}
           >
-            Right Sidebar
+            Modify Table
           </Button>
         </Box>
 

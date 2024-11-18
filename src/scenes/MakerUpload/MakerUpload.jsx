@@ -134,18 +134,13 @@ const MakerUpload = () => {
           </Typography>
           <List>
             <ListItem>
-              <ListItemText primary="Example Value 1" />
+              <ListItemText primary="TRIM" />
             </ListItem>
             <ListItem>
-              <ListItemText primary="Example Value 2" />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="Example Value 3" />
+              <ListItemText primary="DeDuplicate" />
             </ListItem>
           </List>
-          <Typography variant="body1" sx={{ marginBottom: 1 }}>
-            <strong>Data Pattern:</strong> Email format (e.g., user@domain.com)
-          </Typography>
+
           <Typography
             variant="body2"
             color="textSecondary"

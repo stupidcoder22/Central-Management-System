@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Box, List, ListItem, ListItemText, Typography } from "@mui/material";
 import ApplicationSecurity from "./ApplicationSecurity";
+import ApplicationList from "./ApplicationList";
 
 const Application = () => {
-  const [selectedContent, setSelectedContent] = useState(
-    "Application Security"
-  );
+  const [selectedContent, setSelectedContent] = useState("Application List");
 
   const menuItems = [
+    { text: "Application List", component: <ApplicationList /> },
     { text: "Application Security", component: <ApplicationSecurity /> },
   ];
 

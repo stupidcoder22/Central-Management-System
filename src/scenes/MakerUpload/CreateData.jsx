@@ -23,6 +23,7 @@ const connections = {
   Salesforce: ["Module Selection"],
   SQL: ["SQL Query"],
   MongoDB: ["NoSQL Query"],
+  FileSystem: ["File System"],
 };
 
 const columnOptions = [

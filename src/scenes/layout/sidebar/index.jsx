@@ -16,6 +16,7 @@ import ApprovalIcon from "@mui/icons-material/Approval";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import TableChartIcon from "@mui/icons-material/TableChart";
 import PolylineIcon from "@mui/icons-material/Polyline";
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 
 const SideBar = () => {
   const [collapsed, setCollapsed] = useState(true);
@@ -141,6 +142,12 @@ const SideBar = () => {
             path="/connections"
             colors={colors}
             icon={<PolylineIcon />}
+          />
+          <Item
+            title="Application"
+            path="/application"
+            colors={colors}
+            icon={<AppRegistrationIcon />}
           />
         </Menu>
         <Typography
