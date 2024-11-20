@@ -9,9 +9,15 @@ import {
   TableRow,
   TextField,
   Button,
+  IconButton,
   Box,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import EditIcon from "@mui/icons-material/Edit";
+import CancelIcon from "@mui/icons-material/Cancel";
+import SaveIcon from "@mui/icons-material/Save";
+import { useDispatch } from "react-redux";
+import { makeSaveData } from "../../store/MakerandCheckerSlice";
 
 // Styled Table Header for consistent theme color
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -22,57 +28,42 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const ViewTables = ({ toggleSidebar }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedColumnIndex, setSelectedColumnIndex] = useState(null);
-  // "Product Id",
-  //                   "Product Name",
-  //                   "Product Category",
-  //                   "Price",
-  const tableData = [
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [editableCell, setEditableCell] = useState(null); // { rowIndex, colIndex }
+  const [updatedCells, setUpdatedCells] = useState({}); // Track updated cells
+  const [originalValue, setOriginalValue] = useState(""); // Track original value
+  const [tableData, setTableData] = useState([
     {
-      headername: "Product Id",
       id: "0010H00002QT5z7QAF",
       name: "Product A",
-      type: "1020",
       billingStreet: "Category A",
       billingCity: "SPRINGFIELD",
       billingState: "IL",
-      billingPostalCode: "627690001",
-      billingCountry: "US",
     },
     {
-      headername: "Product Name",
       id: "0010H00002QT5z8QAF",
       name: "Product B",
-      type: "1000",
       billingStreet: "Category B",
       billingCity: "PEORIA",
       billingState: "AZ",
-      billingPostalCode: "853814252",
-      billingCountry: "US",
     },
     {
-      headername: "Product Category",
       id: "0010H00002QT5z9QAF",
       name: "Product C",
-      type: "1876",
-      billingStreet: "Category  C",
+      billingStreet: "Category C",
       billingCity: "ALBUQUERQUE",
       billingState: "NM",
-      billingPostalCode: "871064971",
-      billingCountry: "US",
     },
     {
-      headername: "Product Price",
       id: "0010H00002QT6z0QAF",
       name: "Product D",
-      type: "1243",
       billingStreet: "Category D",
       billingCity: "ARCATA",
       billingState: "CA",
-      billingPostalCode: "955214734",
-      billingCountry: "US",
     },
-  ];
+  ]);
+
+  const headers = ["Product Id", "Product Name", "Category", "City"];
 
   const filteredData = tableData.filter(
     (row) =>
@@ -81,11 +72,36 @@ const ViewTables = ({ toggleSidebar }) => {
       row.billingState.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Handle column header click
-  const handleColumnClick = (index) => {
-    setSelectedColumnIndex(index);
-    toggleSidebar({ flag: true, text: tableData[index].headername });
+  const handleEditClick = (rowIndex, colIndex) => {
+    const key = Object.keys(tableData[rowIndex])[colIndex];
+    setOriginalValue(tableData[rowIndex][key]); // Store the original value
+    setEditableCell({ rowIndex, colIndex });
   };
+
+  const handleCancelClick = () => {
+    const { rowIndex, colIndex } = editableCell;
+    const updatedData = [...tableData];
+    const key = Object.keys(tableData[rowIndex])[colIndex];
+    updatedData[rowIndex][key] = originalValue; // Restore original value
+
+    setTableData(updatedData);
+    setEditableCell(null);
+  };
+
+  const handleSaveClick = (rowIndex, colIndex, newValue) => {
+    const updatedData = [...tableData];
+    const key = Object.keys(tableData[rowIndex])[colIndex];
+    updatedData[rowIndex][key] = newValue;
+
+    setTableData(updatedData);
+    setUpdatedCells((prev) => ({
+      ...prev,
+      [`${rowIndex}-${colIndex}`]: true,
+    }));
+    setEditableCell(null);
+  };
+
+  const dispatch = useDispatch();
 
   return (
     <Box>
@@ -110,11 +126,13 @@ const ViewTables = ({ toggleSidebar }) => {
             variant="contained"
             sx={{ backgroundColor: "#3f51b5", color: "white" }}
             onClick={() => {
-              toggleSidebar({ flag: true });
-              setSelectedColumnIndex();
+              setIsEditMode((prev) => !prev);
+              if (isEditMode) {
+                dispatch(makeSaveData(tableData));
+              }
             }}
           >
-            Modify Table
+            {isEditMode ? "Save Modify Data" : "Modify Table"}
           </Button>
         </Box>
 
@@ -122,45 +140,78 @@ const ViewTables = ({ toggleSidebar }) => {
           <Table stickyHeader aria-label="simple table">
             <TableHead>
               <TableRow>
-                {[
-                  "Product Id",
-                  "Product Name",
-                  "Product Category",
-                  "Price",
-                ].map((header, index) => (
-                  <StyledTableCell
-                    key={index}
-                    onClick={() => handleColumnClick(index)}
-                    sx={{
-                      cursor: "pointer",
-                      backgroundColor:
-                        selectedColumnIndex === index ? "#2c387e" : "#3f51b5",
-                    }}
-                  >
-                    {header}
-                  </StyledTableCell>
+                {headers.map((header, index) => (
+                  <StyledTableCell key={index}>{header}</StyledTableCell>
                 ))}
               </TableRow>
             </TableHead>
             <TableBody>
               {filteredData.length > 0 ? (
-                filteredData.map((row) => (
+                filteredData.map((row, rowIndex) => (
                   <TableRow key={row.id}>
-                    {[row.id, row.name, row.billingStreet, row.type].map(
-                      (cell, index) => (
+                    {Object.values(row)
+                      .slice(0, 4)
+                      .map((cell, colIndex) => (
                         <TableCell
-                          key={index}
+                          key={colIndex}
                           sx={{
-                            backgroundColor:
-                              selectedColumnIndex === index
-                                ? "#d1e3f9"
-                                : "inherit",
+                            backgroundColor: updatedCells[
+                              `${rowIndex}-${colIndex}`
+                            ]
+                              ? "#d1e3f9"
+                              : "inherit",
                           }}
                         >
-                          {cell}
+                          {editableCell &&
+                          editableCell.rowIndex === rowIndex &&
+                          editableCell.colIndex === colIndex ? (
+                            <Box sx={{ display: "flex", alignItems: "center" }}>
+                              <TextField
+                                defaultValue={cell}
+                                variant="standard"
+                                sx={{ flex: 1, mr: 1 }}
+                                onChange={(e) => {
+                                  const updatedData = [...tableData];
+                                  const key = Object.keys(tableData[rowIndex])[
+                                    colIndex
+                                  ];
+                                  updatedData[rowIndex][key] = e.target.value;
+                                  setTableData(updatedData);
+                                }}
+                              />
+                              <IconButton
+                                onClick={() =>
+                                  handleSaveClick(
+                                    rowIndex,
+                                    colIndex,
+                                    tableData[rowIndex][
+                                      Object.keys(row)[colIndex]
+                                    ]
+                                  )
+                                }
+                              >
+                                <SaveIcon />
+                              </IconButton>
+                              <IconButton onClick={handleCancelClick}>
+                                <CancelIcon />
+                              </IconButton>
+                            </Box>
+                          ) : (
+                            <Box sx={{ display: "flex", alignItems: "center" }}>
+                              {cell}
+                              {isEditMode && (
+                                <IconButton
+                                  onClick={() =>
+                                    handleEditClick(rowIndex, colIndex)
+                                  }
+                                >
+                                  <EditIcon />
+                                </IconButton>
+                              )}
+                            </Box>
+                          )}
                         </TableCell>
-                      )
-                    )}
+                      ))}
                   </TableRow>
                 ))
               ) : (

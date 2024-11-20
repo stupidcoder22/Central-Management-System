@@ -18,12 +18,13 @@ import {
 import { styled } from "@mui/material/styles";
 import CreateData from "./CreateData";
 import ViewTables from "./ViewTables";
+import { useDispatch } from "react-redux";
+import { makeSaveData } from "../../store/MakerandCheckerSlice";
 
-// Sample table data
 const initialTableData = [
   {
     id: 1,
-    name: "Shopify Customers",
+    name: "Product",
     category: "Amazon S3",
     status: "Stefin",
     date: "02-04-2023",
@@ -51,10 +52,9 @@ const initialTableData = [
   },
 ];
 
-// Styled Table Cells for Header to match button color
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  backgroundColor: "#3f51b5", // Same color as button
-  color: theme.palette.common.white, // White text color
+  backgroundColor: "#3f51b5",
+  color: theme.palette.common.white,
   fontWeight: "bold",
 }));
 
@@ -70,20 +70,16 @@ const MasterTableWithSearch = ({ toggleSidebar }) => {
   const [menuPosition, setMenuPosition] = useState(null);
   const [selectedRow, setSelectedRow] = useState(null);
 
-  // Handle search input change
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
-  };
+  const dispatch = useDispatch();
 
-  // Filter the table data based on the search term
+  const handleSearch = (event) => setSearchTerm(event.target.value);
+
   const filteredData = tableData.filter((table) =>
     table.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Toggle between components based on button clicks
-  const handleCreateDataClick = () => {
+  const handleCreateDataClick = () =>
     setFlag({ list: false, createdata: true, viewtable: false });
-  };
 
   const handleViewTableClick = () => {
     setFlag({ list: false, createdata: false, viewtable: true });
@@ -100,6 +96,12 @@ const MasterTableWithSearch = ({ toggleSidebar }) => {
     setAnchorEl(event.currentTarget);
   };
 
+  const handleViewTable = () => {
+    dispatch(makeSaveData({ title: selectedRow.name })); // Pass the row's name
+    handleClose();
+    handleViewTableClick();
+  };
+
   const handleClose = () => {
     setAnchorEl(null);
     setMenuPosition(null);
@@ -107,14 +109,11 @@ const MasterTableWithSearch = ({ toggleSidebar }) => {
 
   return (
     <>
-      {/* Render the Master Table List when flag.list is true */}
       {flag.list && (
         <Box>
           <Typography variant="h4" gutterBottom>
             Master Table List
           </Typography>
-
-          {/* Search Bar and Buttons */}
           <Grid container spacing={2} alignItems="center">
             <Grid item xs={12} sm={4}>
               <TextField
@@ -134,21 +133,13 @@ const MasterTableWithSearch = ({ toggleSidebar }) => {
               <Button
                 variant="contained"
                 sx={{ backgroundColor: "#3f51b5", color: "white" }}
-                onClick={handleCreateDataClick} // Navigate to Create Data
+                onClick={handleCreateDataClick}
               >
-                Create Data
-              </Button>
-              <Button
-                variant="contained"
-                sx={{ backgroundColor: "#3f51b5", color: "white" }}
-                onClick={handleViewTableClick} // Navigate to View Table
-              >
-                View Table
+                Create Master Table
               </Button>
             </Grid>
           </Grid>
 
-          {/* Table */}
           <TableContainer component={Paper} sx={{ marginTop: "20px" }}>
             <Table>
               <TableHead>
@@ -179,7 +170,6 @@ const MasterTableWithSearch = ({ toggleSidebar }) => {
             </Table>
           </TableContainer>
 
-          {/* Context Menu for Right Click */}
           <Menu
             anchorReference="anchorPosition"
             anchorPosition={
@@ -204,10 +194,7 @@ const MasterTableWithSearch = ({ toggleSidebar }) => {
                 padding: "10px",
                 "&:hover": { backgroundColor: "#e3f2fd" },
               }}
-              onClick={() => {
-                handleClose();
-                handleViewTableClick();
-              }}
+              onClick={handleViewTable}
             >
               View Table
             </MenuItem>
@@ -234,10 +221,8 @@ const MasterTableWithSearch = ({ toggleSidebar }) => {
         </Box>
       )}
 
-      {/* Render CreateData component when flag.createdata is true */}
       {flag.createdata && <CreateData onBack={handleBackToList} />}
 
-      {/* Render ViewTables component when flag.viewtable is true */}
       {flag.viewtable && (
         <ViewTables onBack={handleBackToList} toggleSidebar={toggleSidebar} />
       )}

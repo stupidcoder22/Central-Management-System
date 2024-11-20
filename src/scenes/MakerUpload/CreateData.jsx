@@ -107,13 +107,13 @@ const CreateData = ({ changeFlag }) => {
       >
         {/* Title */}
         <Typography variant="h5" sx={{ color: "#3f51b5", mb: 2 }}>
-          Add a new dataset
+          Add a New Master Table
         </Typography>
 
         {/* Initial Form Inputs */}
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mb: 3 }}>
           {/* Dataset Name */}
-          <TextField label="Dataset name" fullWidth required />
+          <TextField label="Master Table  Name" fullWidth required />
 
           {/* Description */}
           <TextField label="Description" fullWidth multiline rows={3} />
